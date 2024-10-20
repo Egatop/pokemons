@@ -1,6 +1,6 @@
 from random import randint
 import requests
-
+from datetime import datetime, timedelta
 class Pokemon:
     pokemons = {}
     # Инициализация объекта (конструктор)
@@ -16,6 +16,7 @@ class Pokemon:
         self.sound = self.get_sound()
         self.hp =  randint(550,650)
         self.power =  randint(55,100)
+        self.last_feed_time = datetime.now()
 
         Pokemon.pokemons[pokemon_trainer] = self
         
@@ -77,6 +78,8 @@ class Pokemon:
     
     def send_sound(self):
         return self.sound
+    
+     
 class Wizard(Pokemon):
     def __init__(self,pokemon_trainer ):
         self.pokemon_trainer = pokemon_trainer   
@@ -86,6 +89,7 @@ class Wizard(Pokemon):
         self.sound = self.get_sound()
         self.hp =  randint(500,700)
         self.power =  randint(50,90)
+        self.last_feed_time = datetime.now()
         Pokemon.pokemons[pokemon_trainer] = self
 
     def info(self):
@@ -97,6 +101,9 @@ class Wizard(Pokemon):
             self.power += 10
             del Pokemon.pokemons[id]
         return result
+    def feed(self): 
+        result = super().feed(120,30)
+        return(result)
  
 
 class Fighter(Pokemon):
@@ -108,6 +115,7 @@ class Fighter(Pokemon):
         self.sound = self.get_sound()
         self.power=randint(70,120)
         self.hp = randint(400,550)
+        self.last_feed_time = datetime.now()
         Pokemon.pokemons[pokemon_trainer] = self
 
     def info(self):
@@ -122,6 +130,10 @@ class Fighter(Pokemon):
             self.power += 20
             del Pokemon.pokemons[id]
         return result + f"\nБоец применил супер-атаку силой:{super_power} "
+    def feed(self): 
+        result = super().feed(200,40)
+        return(result)
+
     
     
 class Ordinary(Pokemon):
@@ -134,6 +146,9 @@ class Ordinary(Pokemon):
             self.power += 15
             del Pokemon.pokemons[id]
         return result
+     def feed(self): 
+        result = super().feed(120,25)
+        return(result)
 
 
 
