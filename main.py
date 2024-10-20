@@ -48,6 +48,15 @@ def info(message):
       
     else:
         bot.reply_to(message, "Ты еще не создал своего покемона")
+@bot.message_handler(commands=['feed'])
+def deed_hp(message):
+    if message.from_user.username  in Pokemon.pokemons.keys():
+        pok = Pokemon.pokemons[message.from_user.username]
+        res = pok.feed()
+        bot.send_message(message.chat.id, res)
+
+    else:
+        bot.reply_to(message, "Ты еще не создал своего покемона")
 
 @bot.message_handler(commands=['attack'])
 def attack_pok(message):
